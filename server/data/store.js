@@ -1,0 +1,243 @@
+const fs = require("fs");
+const path = require("path");
+const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
+
+const DB_FILE = path.join(__dirname, "hotel_db.json");
+
+function generateId() {
+  return crypto.randomBytes(12).toString("hex");
+}
+
+function loadData() {
+  if (!fs.existsSync(DB_FILE)) {
+    const salt = bcrypt.genSaltSync(10);
+    const defaultPasswordHash = bcrypt.hashSync("password123", salt);
+
+    const initialData = {
+      users: [
+        {
+          _id: "68d224f1506b7d3f0b866aed",
+          name: "tousif",
+          email: "tousif@gmail.com",
+          password: defaultPasswordHash,
+          phone: 9704927891,
+          userType: "Admin",
+          createdAt: new Date("2025-09-20").toISOString()
+        },
+        {
+          _id: "68d2345d5686a24fada0994e",
+          name: "rohan",
+          email: "rohan3@gmail.com",
+          password: defaultPasswordHash,
+          phone: 9704927800,
+          userType: "Ordinary",
+          createdAt: new Date("2025-09-21").toISOString()
+        },
+        {
+          _id: "68d2356a5686a24fada09960",
+          name: "sid",
+          email: "sid@gmail.com",
+          password: defaultPasswordHash,
+          phone: 9704927807,
+          userType: "Ordinary",
+          createdAt: new Date("2025-09-21").toISOString()
+        },
+        {
+          _id: "68d235b05686a24fada09969",
+          name: "saisunny",
+          email: "sai@gmail.com",
+          password: defaultPasswordHash,
+          phone: 9704927807,
+          userType: "Ordinary",
+          createdAt: new Date("2025-09-21").toISOString()
+        },
+        {
+          _id: "68d3818579255d604fe9724c",
+          name: "sun",
+          email: "s@gmail.com",
+          password: defaultPasswordHash,
+          phone: 9704927807,
+          userType: "Admin",
+          createdAt: new Date("2025-09-22").toISOString()
+        }
+      ],
+      rooms: [
+        {
+          _id: "68d230b8e24b51e6c5a22ad5",
+          roomNumber: 101,
+          count: 1,
+          rent: 1200,
+          type: "Delux",
+          photos: [
+            "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1200&q=80"
+          ],
+          description: "luxury rooms with scenic views, plush king-size bed, private balcony, and ambient lighting.",
+          currentbooking: [
+            {
+              bookingid: "68d259fb3cb3cc7831c89406",
+              fromdate: "23-09-2025",
+              todate: "24-09-2025",
+              userid: "68d2345d5686a24fada0994e",
+              status: "cancelled"
+            }
+          ],
+          createdAt: new Date("2025-09-20").toISOString()
+        },
+        {
+          _id: "68d23257e24b51e6c5a22ad7",
+          roomNumber: 102,
+          count: 1,
+          rent: 1200,
+          type: "Delux",
+          photos: [
+            "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=80"
+          ],
+          description: "luxury rooms equipped with high-speed WiFi, mini-bar, work desk, and lavish marble bath.",
+          currentbooking: [
+            {
+              bookingid: "68d2609d3cb3cc7831c8943f",
+              fromdate: "23-09-2025",
+              todate: "24-09-2025",
+              userid: "68d2345d5686a24fada0994e",
+              status: "booked"
+            }
+          ],
+          createdAt: new Date("2025-09-20").toISOString()
+        },
+        {
+          _id: "68d248bce5da9b6fb84ba237",
+          roomNumber: 103,
+          count: 1,
+          rent: 1200,
+          type: "Delux",
+          photos: [
+            "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1200&q=80"
+          ],
+          description: "luxury rooms offering serene garden views, personalized room service, and deluxe bath amenities.",
+          currentbooking: [
+            {
+              bookingid: "68d381e679255d604fe97265",
+              fromdate: "25-09-2025",
+              todate: "27-09-2025",
+              userid: "68d2356a5686a24fada09960",
+              status: "cancelled"
+            }
+          ],
+          createdAt: new Date("2025-09-21").toISOString()
+        },
+        {
+          _id: "68d381b179255d604fe97255",
+          roomNumber: 104,
+          count: 5,
+          rent: 900,
+          type: "Delux",
+          photos: [
+            "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1540518614846-7ede433c4ef6?auto=format&fit=crop&w=1200&q=80"
+          ],
+          description: "luxury rooms perfect for family stays, featuring connecting spaces, multiple beds, and entertainment hub.",
+          currentbooking: [],
+          createdAt: new Date("2025-09-22").toISOString()
+        },
+        {
+          _id: "68d381b179255d604fe97299",
+          roomNumber: 105,
+          count: 2,
+          rent: 800,
+          type: "Non-Delux",
+          photos: [
+            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80"
+          ],
+          description: "comfortable economy room with air conditioning, queen bed, and essential modern amenities.",
+          currentbooking: [],
+          createdAt: new Date("2025-09-23").toISOString()
+        }
+      ],
+      bookings: [
+        {
+          _id: "68d259fb3cb3cc7831c89406",
+          roomid: "68d230b8e24b51e6c5a22ad5",
+          type: "Delux Room",
+          userid: "68d2345d5686a24fada0994e",
+          username: "rohan",
+          fromdate: "23-09-2025",
+          todate: "24-09-2025",
+          totalAmount: 2400,
+          totaldays: 2,
+          phone: 9704927807,
+          cardDetails: {
+            cardholdername: "Rohan Verma",
+            cardnumber: "4111222233334444",
+            cvvcode: "123",
+            expmonthyear: "12/28"
+          },
+          status: "cancelled",
+          createdAt: new Date("2025-09-23").toISOString()
+        },
+        {
+          _id: "68d2609d3cb3cc7831c8943f",
+          roomid: "68d23257e24b51e6c5a22ad7",
+          type: "Delux Room",
+          userid: "68d2345d5686a24fada0994e",
+          username: "rohan",
+          fromdate: "23-09-2025",
+          todate: "24-09-2025",
+          totalAmount: 2400,
+          totaldays: 2,
+          phone: 9704927807,
+          cardDetails: {
+            cardholdername: "Rohan Verma",
+            cardnumber: "4111222233334444",
+            cvvcode: "123",
+            expmonthyear: "12/28"
+          },
+          status: "booked",
+          createdAt: new Date("2025-09-23").toISOString()
+        },
+        {
+          _id: "68d381e679255d604fe97265",
+          roomid: "68d248bce5da9b6fb84ba237",
+          type: "Delux Room",
+          userid: "68d2356a5686a24fada09960",
+          username: "sid",
+          fromdate: "25-09-2025",
+          todate: "27-09-2025",
+          totalAmount: 2700,
+          totaldays: 2,
+          phone: 9704927800,
+          cardDetails: {
+            cardholdername: "Siddharth Rao",
+            cardnumber: "5500222233334444",
+            cvvcode: "456",
+            expmonthyear: "08/27"
+          },
+          status: "cancelled",
+          createdAt: new Date("2025-09-25").toISOString()
+        }
+      ]
+    };
+
+    fs.writeFileSync(DB_FILE, JSON.stringify(initialData, null, 2), "utf-8");
+    return initialData;
+  }
+  return JSON.parse(fs.readFileSync(DB_FILE, "utf-8"));
+}
+
+function saveData(data) {
+  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), "utf-8");
+}
+
+module.exports = {
+  generateId,
+  loadData,
+  saveData
+};
