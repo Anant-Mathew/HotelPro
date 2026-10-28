@@ -23,7 +23,7 @@ export default function Footer() {
       >
         <div>
           <h3 style={{ color: "#ffffff", fontSize: 20, marginBottom: 12 }}>
-            RoomsForUse <span style={{ fontSize: 13, color: "#38bdf8" }}>by HotelPro</span>
+            HotelPro <span style={{ fontSize: 13, color: "#38bdf8" }}>RoomsForUse</span>
           </h3>
           <p style={{ fontSize: 14, lineHeight: 1.6 }}>
             Modern Hotel Management & Booking Solution providing seamless reservations, real-time
@@ -59,7 +59,7 @@ export default function Footer() {
         <div>
           <h4 style={{ color: "#ffffff", fontSize: 16, marginBottom: 12 }}>Contact Support</h4>
           <p style={{ fontSize: 14, lineHeight: 1.6 }}>
-            Email: reservations@hotelpro.local<br />
+            Email: reservations@hotelpro.com<br />
             Support: +91 97049 27807<br />
             Available 24 hours daily
           </p>
@@ -75,7 +75,7 @@ export default function Footer() {
           color: "#64748b"
         }}
       >
-        © {new Date().getFullYear()} HotelPro / RoomsForUse. All rights reserved. MERN Architecture.
+        © {new Date().getFullYear()} HotelPro — RoomsForUse. All rights reserved.
       </div>
     </footer>
   );

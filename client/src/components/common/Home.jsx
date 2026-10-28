@@ -1,17 +1,89 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { roomAPI } from "../../services/api";
-import { useAuth } from "../../context/AuthContext";
+import axios from "axios";
 import BookingModal from "../user/BookingModal";
 
+const DEFAULT_ROOMS = [
+  {
+    _id: "68d230b8e24b51e6c5a22ad5",
+    roomNumber: 101,
+    count: 1,
+    rent: 1200,
+    type: "Delux",
+    photos: [
+      "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80"
+    ],
+    description: "luxury rooms with scenic views, plush king-size bed, private balcony, and ambient lighting."
+  },
+  {
+    _id: "68d23257e24b51e6c5a22ad7",
+    roomNumber: 102,
+    count: 1,
+    rent: 1200,
+    type: "Delux",
+    photos: [
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=1200&q=80"
+    ],
+    description: "luxury rooms equipped with high-speed WiFi, mini-bar, work desk, and lavish marble bath."
+  },
+  {
+    _id: "68d248bce5da9b6fb84ba237",
+    roomNumber: 103,
+    count: 1,
+    rent: 1200,
+    type: "Delux",
+    photos: [
+      "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80"
+    ],
+    description: "luxury rooms offering serene garden views, personalized room service, and deluxe bath amenities."
+  },
+  {
+    _id: "68d381b179255d604fe97255",
+    roomNumber: 104,
+    count: 5,
+    rent: 900,
+    type: "Delux",
+    photos: [
+      "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=1200&q=80"
+    ],
+    description: "luxury rooms perfect for family stays, featuring connecting spaces, multiple beds, and entertainment hub."
+  },
+  {
+    _id: "68d381b179255d604fe97299",
+    roomNumber: 105,
+    count: 2,
+    rent: 800,
+    type: "Non-Delux",
+    photos: [
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80"
+    ],
+    description: "comfortable economy room with air conditioning, queen bed, and essential modern amenities."
+  }
+];
+
 export default function Home() {
-  const [rooms, setRooms] = useState([]);
-  const [filteredRooms, setFilteredRooms] = useState([]);
+  const [rooms, setRooms] = useState(DEFAULT_ROOMS);
+  const [filteredRooms, setFilteredRooms] = useState(DEFAULT_ROOMS);
   const [searchType, setSearchType] = useState("all");
   const [currentSlide, setCurrentSlide] = useState(0);
   const [selectedRoom, setSelectedRoom] = useState(null);
-  const { isAuthenticated, isAdmin } = useAuth();
   const navigate = useNavigate();
+
+  // Safely get user from localStorage
+  let user = null;
+  try {
+    const stored = localStorage.getItem("user");
+    if (stored && stored !== "undefined") {
+      user = JSON.parse(stored);
+    }
+  } catch (e) {
+    user = null;
+  }
+  const isAuthenticated = !!user;
+  const isAdmin = user && user.userType === "Admin";
 
   const heroSlides = [
     {
@@ -34,11 +106,13 @@ export default function Home() {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const res = await roomAPI.getAllRooms();
-        setRooms(res.data);
-        setFilteredRooms(res.data);
+        const res = await axios.get("/getallrooms");
+        if (Array.isArray(res.data) && res.data.length > 0) {
+          setRooms(res.data);
+          setFilteredRooms(res.data);
+        }
       } catch (err) {
-        console.error("Failed to load rooms:", err);
+        console.log("Using default rooms catalog:", err);
       }
     };
     fetchRooms();
@@ -126,7 +200,8 @@ export default function Home() {
                   padding: "12px 28px",
                   borderRadius: 6,
                   fontSize: 15,
-                  fontWeight: 600
+                  fontWeight: 600,
+                  cursor: "pointer"
                 }}
               >
                 Browse Rooms
@@ -272,7 +347,8 @@ export default function Home() {
                     color: searchType === type ? "#ffffff" : "#475569",
                     fontWeight: 600,
                     fontSize: 13,
-                    textTransform: "capitalize"
+                    textTransform: "capitalize",
+                    cursor: "pointer"
                   }}
                 >
                   {type === "all" ? "All Rooms" : type}

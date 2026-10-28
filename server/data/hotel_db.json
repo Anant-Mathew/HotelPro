@@ -142,7 +142,15 @@
         "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80"
       ],
       "description": "comfortable economy room with air conditioning, queen bed, and essential modern amenities.",
-      "currentbooking": [],
+      "currentbooking": [
+        {
+          "bookingid": "cf3386c3ba8d99341cd107db",
+          "fromdate": "2025-09-24",
+          "todate": "2025-09-26",
+          "userid": "68d2345d5686a24fada0994e",
+          "status": "booked"
+        }
+      ],
       "createdAt": "2025-09-23T00:00:00.000Z"
     }
   ],
@@ -206,6 +214,26 @@
       },
       "status": "cancelled",
       "createdAt": "2025-09-25T00:00:00.000Z"
+    },
+    {
+      "_id": "cf3386c3ba8d99341cd107db",
+      "status": "booked",
+      "roomid": "68d381b179255d604fe97299",
+      "type": "Non-Delux Room",
+      "userid": "68d2345d5686a24fada0994e",
+      "username": "rohan",
+      "fromdate": "2025-09-24",
+      "todate": "2025-09-26",
+      "totalAmount": 1600,
+      "totaldays": 2,
+      "phone": 9704927800,
+      "cardDetails": {
+        "cardholdername": "rohan",
+        "cardnumber": "4111222233334444",
+        "cvvcode": "123",
+        "expmonthyear": "12/28"
+      },
+      "createdAt": "2026-10-28T02:39:11.434Z"
     }
   ]
 }

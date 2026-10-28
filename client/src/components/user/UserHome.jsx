@@ -21,7 +21,15 @@ export default function UserHome() {
   const [phone, setPhone] = useState("");
 
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user")) || {};
+  let user = {};
+  try {
+    const stored = localStorage.getItem("user");
+    if (stored && stored !== "undefined") {
+      user = JSON.parse(stored);
+    }
+  } catch (e) {
+    user = {};
+  }
 
   // fetch all rooms when page loads
   useEffect(() => {

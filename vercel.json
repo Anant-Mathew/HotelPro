@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/(SignUp|Login|getallrooms|addroom|bookroom|cancelbooking|getbookingsbyuserid|getallbookings|getallusers|api/(.*)|user/(.*))",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

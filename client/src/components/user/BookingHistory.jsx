@@ -6,7 +6,15 @@ import axios from "axios";
 
 export default function BookingHistory() {
   const [bookings, setBookings] = useState([]);
-  const user = JSON.parse(localStorage.getItem("user")) || {};
+  let user = {};
+  try {
+    const stored = localStorage.getItem("user");
+    if (stored && stored !== "undefined") {
+      user = JSON.parse(stored);
+    }
+  } catch (e) {
+    user = {};
+  }
 
   // fetch user bookings when component mounts
   useEffect(() => {

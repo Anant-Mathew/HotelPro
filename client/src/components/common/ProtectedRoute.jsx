@@ -5,8 +5,16 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 export default function ProtectedRoute({ children, adminOnly = false }) {
-  // get logged in user from localStorage
-  const user = JSON.parse(localStorage.getItem("user"));
+  // get logged in user from localStorage safely
+  let user = null;
+  try {
+    const stored = localStorage.getItem("user");
+    if (stored && stored !== "undefined") {
+      user = JSON.parse(stored);
+    }
+  } catch (e) {
+    user = null;
+  }
 
   // check if user is logged in
   if (!user) {

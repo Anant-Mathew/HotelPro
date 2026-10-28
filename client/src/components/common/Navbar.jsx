@@ -7,8 +7,16 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Navbar() {
   const navigate = useNavigate();
 
-  // get user from local storage
-  const user = JSON.parse(localStorage.getItem("user"));
+  // get user from local storage safely
+  let user = null;
+  try {
+    const stored = localStorage.getItem("user");
+    if (stored && stored !== "undefined") {
+      user = JSON.parse(stored);
+    }
+  } catch (e) {
+    user = null;
+  }
   const isAdmin = user && user.userType === "Admin";
 
   // logout function
